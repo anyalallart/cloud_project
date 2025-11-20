@@ -1,5 +1,5 @@
 ##############################################################
-################### ouptut de resource group #################
+################### ouptut resource group ####################
 ##############################################################
 
 output "resource_group_name" {
@@ -8,26 +8,26 @@ output "resource_group_name" {
 }
 
 ##############################################################
-################### output de log_analytics ##################
+################### output log_analytics #####################
 ##############################################################
 
 output "log_analytics_workspace_id" {
-  value = azurerm_log_analytics_workspace.main.id
+  value = module.log_analytics.id
 }
 
 ##############################################################
-####################### output de ACR ########################
+####################### output ACR ###########################
 ##############################################################
 
 output "acr_login_server" {
-  value = azurerm_container_registry.main.login_server
+  value = module.acr.login_server
 }
 
 output "acr_admin_username" {
-  value = azurerm_container_registry.main.admin_username
+  value = module.acr.admin_username
 }
 
 output "acr_admin_password" {
-  value = azurerm_container_registry.main.admin_password
+  value = module.acr.admin_password
   sensitive = true
 }
