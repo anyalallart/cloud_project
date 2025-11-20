@@ -16,10 +16,9 @@ variable "subscription_id" {
   nullable    = false
 }
 
-variable "resource_group_name" {
-  type = string
-  description = "Resource Group in which to create the workspace"
-}
+#################################################
+############### log analytics ###################
+#################################################
 
 variable "sku" {
   type        = string
@@ -30,5 +29,5 @@ variable "sku" {
 variable "retention_in_days" {
   type        = number
   default     = 30
-  description = "Durée de rétention des logs"
+  description = "Log retention period"
 }
