@@ -15,3 +15,20 @@ variable "subscription_id" {
   type        = string
   nullable    = false
 }
+
+variable "resource_group_name" {
+  type = string
+  description = "Resource Group in which to create the workspace"
+}
+
+variable "sku" {
+  type        = string
+  default     = "PerGB2018"
+  description = "SKU du Log Analytics Workspace"
+}
+
+variable "retention_in_days" {
+  type        = number
+  default     = 30
+  description = "Durée de rétention des logs"
+}
