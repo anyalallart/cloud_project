@@ -28,3 +28,15 @@ module "acr" {
   sku                 = "Basic"
   admin_enabled       = true
 }
+
+module "ACA" {
+  source = "./modules/ACA"
+
+  name                = "${var.project_name}-aca-env"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  # Outputs des modules existants
+  log_analytics_workspace_id = module.log_analytics.id
+  acr_id                     = module.acr.id
+}
