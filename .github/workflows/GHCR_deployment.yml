@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  REPO: ${{ github.repository_owner }}/$(echo "${{ github.repository }}" | cut -d'/' -f2)
+  REPO: "${{ github.repository_owner }}/${{ github.repository }}"
   FRONT_PATH: . #app/frontend
   FRONT_DOCKERFILE: dockerfile #app/frontend/Dockerfile
   BACK_PATH: . #app/backend
