@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }} # Use the GitHub repository name as the image name
+  REPO: ${{ github.repository_owner }}/$(echo "${{ github.repository }}" | cut -d'/' -f2)
   FRONT_PATH: . #app/frontend
   FRONT_DOCKERFILE: dockerfile #app/frontend/Dockerfile
   BACK_PATH: . #app/backend
