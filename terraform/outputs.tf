@@ -31,3 +31,21 @@ output "acr_admin_password" {
   value = module.acr.admin_password
   sensitive = true
 }
+
+
+##############################################################
+######################## PostgreSQL ##########################
+##############################################################
+
+output "postgres_fqdn" {
+  value = module.postgres.fqdn
+}
+
+output "postgres_admin_username" {
+  value = module.postgres.admin_username
+}
+
+output "postgres_admin_password" {
+  value     = module.postgres.admin_password
+  sensitive = true
+}

@@ -31,3 +31,17 @@ variable "retention_in_days" {
   default     = 30
   description = "Log retention period"
 }
+
+###################################################
+############## PostgreSQL #########################
+###################################################
+
+variable "postgres_admin_username" {
+  type        = string
+  default     = "pgadmin"
+}
+
+variable "postgres_admin_password" {
+  type        = string
+  sensitive   = true
+}

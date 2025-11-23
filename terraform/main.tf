@@ -40,3 +40,14 @@ module "ACA" {
   log_analytics_workspace_id = module.log_analytics.id
   acr_id                     = module.acr.id
 }
+
+module "postgres" {
+  source = "./modules/postgres"
+
+  name                = "${var.project_name}-pg"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+
+  admin_username = var.postgres_admin_username
+  admin_password = var.postgres_admin_password
+}
