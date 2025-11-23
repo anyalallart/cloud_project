@@ -61,8 +61,8 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
         with:
-          context: ./infrastructure/api  # Chemin vers le dossier 'api'
-          file: ./infrastructure/api/Dockerfile  # Chemin vers le Dockerfile dans le dossier 'api'
+          context: . #! Chemin vers le dossier 'api' !!!!!!!!! A CHANGER /!\ !!!!!!!!!!!
+          file: dockerfile #! Chemin vers le Dockerfile dans le dossier 'api' !!!!!!!!! A CHANGER /!\ !!!!!!!!!!! 
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
