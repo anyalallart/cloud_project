@@ -1,0 +1,26 @@
+name: Terraform Check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  terraform-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.13.3
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Validate Terraform configuration
+        run: terraform validate
+
+      - name: Check Terraform formatting
+        run: terraform fmt -check
