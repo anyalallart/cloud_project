@@ -21,7 +21,7 @@ module "log_analytics" {
 }
 
 module "acr" {
-  source              = "./modules/acr"
+  source              = "./modules/container_registry"
   name                = "${var.project_name}acr"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
@@ -30,7 +30,7 @@ module "acr" {
 }
 
 module "ACA" {
-  source = "./modules/ACA"
+  source = "./modules/container_apps"
 
   name                = "${var.project_name}-aca-env"
   location            = azurerm_resource_group.main.location
