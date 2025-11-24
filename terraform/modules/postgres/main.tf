@@ -8,6 +8,7 @@ resource "azurerm_postgresql_flexible_server" "this" {
   administrator_password        = var.admin_password
   storage_mb                   = 32768
   sku_name                     = "B_Standard_B1ms"
+  zone = "2"
 
   authentication {
     password_auth_enabled = true

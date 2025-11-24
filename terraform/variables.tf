@@ -16,6 +16,12 @@ variable "subscription_id" {
   nullable    = false
 }
 
+variable "tenant_id" {
+  description = "Azure tenant ID"
+  type        = string
+  nullable    = false
+}
+
 #################################################
 ############### log analytics ###################
 #################################################
@@ -45,3 +51,35 @@ variable "postgres_admin_password" {
   type        = string
   sensitive   = true
 }
+
+###################################################
+################ Image Importer ###################
+###################################################
+
+variable "ghcr_username" {
+  description = "GitHub username for GHCR authentication."
+  type      = string
+}
+
+variable "ghcr_pat" {
+  description = "GitHub Personal Access Token (PAT) for GHCR authentication."
+  type      = string
+  sensitive = true
+}
+
+variable "source_image_name" {
+  description = "Name of the source image in GHCR (e.g., <user>/<repo>)."
+  type        = string
+}
+
+variable "image_tag" {
+  description = "Tag of the image to import"
+  type        = string
+  default     = "main"
+}
+
+variable "repository_name_in_acr" {
+  description = "Name of the repository in the target ACR"
+  type        = string
+}
+

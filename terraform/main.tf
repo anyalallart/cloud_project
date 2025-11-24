@@ -51,3 +51,16 @@ module "postgres" {
   admin_username = var.postgres_admin_username
   admin_password = var.postgres_admin_password
 }
+
+module "image_importer" {
+  source = "./modules/image_importer"
+
+  ghcr_username        = var.ghcr_username
+  ghcr_pat             = var.ghcr_pat
+  source_image_name    = var.source_image_name
+  image_tag            = var.image_tag
+  repository_name_in_acr = var.repository_name_in_acr
+  resource_group_name  = azurerm_resource_group.main.name
+  acr_name             = module.acr.acr_name
+  tenant_id            = var.tenant_id
+}
