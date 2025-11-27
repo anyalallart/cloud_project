@@ -1,33 +1,35 @@
 locals {
-# Construct the full source URL (GHCR)
-  ghcr_source = "ghcr.io/${var.source_image_name}:${var.image_tag}"
-# Construct the target URL in the ACR
-  acr_target  = "${var.repository_name_in_acr}:${var.image_tag}"
+  images_map = {
+    for img in var.docker_images :
+    "${img.source_image_name}:${img.image_tag}" => img
+  }
 }
 
-resource "null_resource" "import_ghcr_image" {
-  
+resource "null_resource" "import_ghcr_images" {
+
+  for_each = local.images_map
+
   triggers = {
-    image_version = local.ghcr_source
-    acr_name      = var.acr_name
+    image_version = "${each.value.source_image_name}:${each.value.image_tag}"
   }
 
   provisioner "local-exec" {
     command = <<-EOT
 
-    az login --service-principal \
-      --username "${var.ghcr_username}" \
-      --password "${var.ghcr_pat}" \
-      --tenant "${var.tenant_id}"
+      echo "Importing GHCR image: ${each.value.source_image_name}:${each.value.image_tag}"
 
-    az acr import \
-      --name ${var.acr_name} \
-      --source ${local.ghcr_source} \
-      --image ${local.acr_target} \
-      --username ${var.ghcr_username} \
-      --password '${var.ghcr_pat}' \
-      --resource-group ${var.resource_group_name}
+      az acr import \
+        --name ${var.acr_name} \
+        --source ghcr.io/${each.value.source_image_name}:${each.value.image_tag} \
+        --image ${each.value.repository_name_in_acr}:${each.value.image_tag} \
+        --username "${var.ghcr_username}" \
+        --password "${var.ghcr_pat}" \
+        --resource-group ${var.resource_group_name} \
+        --force
+
+      echo "Import done for ${each.value.repository_name_in_acr}"
     EOT
+
     interpreter = ["/bin/bash", "-c"]
   }
 }

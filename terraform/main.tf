@@ -10,6 +10,7 @@ terraform {
 }
 
 
+
 # Modules
 module "log_analytics" {
   source              = "./modules/log_analytics"
@@ -55,12 +56,21 @@ module "postgres" {
 module "image_importer" {
   source = "./modules/image_importer"
 
-  ghcr_username        = var.ghcr_username
-  ghcr_pat             = var.ghcr_pat
-  source_image_name    = var.source_image_name
-  image_tag            = var.image_tag
-  repository_name_in_acr = var.repository_name_in_acr
-  resource_group_name  = azurerm_resource_group.main.name
-  acr_name             = module.acr.acr_name
-  tenant_id            = var.tenant_id
+  ghcr_username = var.ghcr_username
+  ghcr_pat      = var.ghcr_pat
+  docker_images = [
+    {
+      source_image_name      = "anyalallart/anyalallart/cloud_project/frontend"
+      repository_name_in_acr = "frontend"
+      image_tag              = "main"
+    },
+    {
+      source_image_name      = "anyalallart/anyalallart/cloud_project/backend"
+      repository_name_in_acr = "backend"
+      image_tag              = "main"
+    }
+  ]
+  resource_group_name = azurerm_resource_group.main.name
+  acr_name            = module.acr.acr_name
+  tenant_id           = var.tenant_id
 }

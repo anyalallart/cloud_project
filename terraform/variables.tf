@@ -66,20 +66,3 @@ variable "ghcr_pat" {
   type      = string
   sensitive = true
 }
-
-variable "source_image_name" {
-  description = "Name of the source image in GHCR (e.g., <user>/<repo>)."
-  type        = string
-}
-
-variable "image_tag" {
-  description = "Tag of the image to import"
-  type        = string
-  default     = "main"
-}
-
-variable "repository_name_in_acr" {
-  description = "Name of the repository in the target ACR"
-  type        = string
-}
-
