@@ -1,6 +1,5 @@
 # main.tf serves as the entry point for Terraform
-# Terraform automatically loads all *.tf files in the folder,
-# so this file can remain mostly empty for now.
+# Terraform automatically loads all *.tf files in the folder
 
 # Optional: just to clarify the entry point
 terraform {
@@ -8,8 +7,6 @@ terraform {
     path = "terraform.tfstate"
   }
 }
-
-
 
 # Modules
 module "log_analytics" {
@@ -27,19 +24,15 @@ module "acr" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   sku                 = "Basic"
-  admin_enabled       = true
+  admin_enabled       = false
 }
 
 module "ACA" {
-  source = "./modules/container_apps"
+  source = "./modules/container_apps/environment"
 
   name                = "${var.project_name}-aca-env"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-
-  # Outputs des modules existants
-  log_analytics_workspace_id = module.log_analytics.id
-  acr_id                     = module.acr.id
 }
 
 module "postgres" {
@@ -73,4 +66,17 @@ module "image_importer" {
   resource_group_name = azurerm_resource_group.main.name
   acr_name            = module.acr.acr_name
   tenant_id           = var.tenant_id
+}
+
+module "backend" {
+  source = "./modules/container_apps/backend"
+
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  environment_id      = module.ACA.environment_id
+  backend_image       = "${module.acr.login_server}/backend:main"
+  acr_id              = module.acr.id
+  acr_login_server    = module.acr.login_server
+  
+  depends_on = [ module.image_importer ]
 }
