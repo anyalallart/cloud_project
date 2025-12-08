@@ -80,3 +80,17 @@ module "backend" {
   
   depends_on = [ module.image_importer ]
 }
+
+module "frontend" {
+  source = "./modules/container_apps/frontend"
+
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  environment_id      = module.ACA.environment_id
+  frontend_image      = "${module.acr.login_server}/frontend:main"
+  acr_id              = module.acr.id
+  acr_login_server    = module.acr.login_server
+  backend_url         = module.backend.backend_url
+
+  depends_on = [ module.image_importer, module.backend ]
+}

@@ -3,7 +3,7 @@ output "backend_name" {
   value       = azurerm_container_app.backend.name
 }
 
-output "url" {
+output "backend_url" {
   description = "URL of the backend Container App"
   value       = azurerm_container_app.backend.latest_revision_fqdn
   sensitive   = false

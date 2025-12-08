@@ -37,6 +37,6 @@ output "postgres_admin_password" {
 
 output "backend_url" {
   description = "URL of the backend Container App"
-  value       = module.backend.url
+  value       = module.backend.backend_url
   sensitive   = false
 }
