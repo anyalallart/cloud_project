@@ -1,13 +1,4 @@
 ##############################################################
-################### ouptut resource group ####################
-##############################################################
-
-output "resource_group_name" {
-  description = "Name of the resource group created"
-  value       = azurerm_resource_group.main.name
-}
-
-##############################################################
 ################### output log_analytics #####################
 ##############################################################
 
@@ -38,4 +29,14 @@ output "postgres_admin_username" {
 output "postgres_admin_password" {
   value     = module.postgres.admin_password
   sensitive = true
+}
+
+##############################################################
+#################### output backend ACA ######################
+##############################################################
+
+output "backend_url" {
+  description = "URL of the backend Container App"
+  value       = module.backend.url
+  sensitive   = false
 }
