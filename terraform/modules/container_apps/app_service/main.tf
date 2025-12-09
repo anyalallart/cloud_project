@@ -60,8 +60,3 @@ resource "azurerm_container_app" "this" {
     }
   }
 }
-
-# Export the URL so it can be used elsewhere (e.g., back for front)
-output "fqdn" {
-  value = "https://${azurerm_container_app.this.latest_revision_fqdn}"
-}
