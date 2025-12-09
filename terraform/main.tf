@@ -68,29 +68,47 @@ module "image_importer" {
   tenant_id           = var.tenant_id
 }
 
+# 1. Creation of the Backend
 module "backend" {
-  source = "./modules/container_apps/backend"
+  source = "./modules/container_apps/app_service" 
 
+  # Infos Infra
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   environment_id      = module.ACA.environment_id
-  backend_image       = "${module.acr.login_server}/backend:main"
   acr_id              = module.acr.id
   acr_login_server    = module.acr.login_server
+
+  # infos Specific to Backend
+  service_name = "backend-api"
+  image_name   = "${module.acr.login_server}/backend:main"
+  target_port  = 8080
   
+  env_vars = {} 
+
   depends_on = [ module.image_importer ]
 }
 
+# 2. Creation of the Frontend
 module "frontend" {
-  source = "./modules/container_apps/frontend"
+  source = "./modules/container_apps/app_service" # Same source code!
 
+  # Infos Infra
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   environment_id      = module.ACA.environment_id
-  frontend_image      = "${module.acr.login_server}/frontend:main"
   acr_id              = module.acr.id
   acr_login_server    = module.acr.login_server
-  backend_url         = module.backend.backend_url
 
-  depends_on = [ module.image_importer, module.backend ]
+  # infos Specific to Frontend
+  service_name = "frontend-app"
+  image_name   = "${module.acr.login_server}/frontend:main"
+  target_port  = 8080
+
+  # Injection of the BACKEND_URL variable
+  env_vars = {
+    BACKEND_URL = module.backend.url
+  }
+
+  depends_on = [ module.image_importer ]
 }
