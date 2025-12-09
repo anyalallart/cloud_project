@@ -1,20 +1,25 @@
 variable "name" {
-  type = string
+  description = "The name of the PostgreSQL server."
+  type        = string
 }
 
 variable "resource_group_name" {
-  type = string
+  description = "The name of the resource group in which to create the PostgreSQL server."
+  type        = string
 }
 
 variable "location" {
-  type = string
+  description = "The Azure region where the PostgreSQL server will be deployed."
+  type        = string
 }
 
 variable "admin_username" {
-  type = string
+  description = "The administrator username for the PostgreSQL server."
+  type        = string
 }
 
 variable "admin_password" {
-  type      = string
-  sensitive = true
+  description = "The administrator password for the PostgreSQL server."
+  type        = string
+  sensitive   = true
 }
