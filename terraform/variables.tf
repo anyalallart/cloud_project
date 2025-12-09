@@ -29,7 +29,7 @@ variable "tenant_id" {
 variable "sku" {
   type        = string
   default     = "PerGB2018"
-  description = "SKU du Log Analytics Workspace"
+  description = "SKU of the Log Analytics Workspace"
 }
 
 variable "retention_in_days" {
