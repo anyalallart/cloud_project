@@ -52,7 +52,7 @@ resource "azurerm_container_app" "this" {
   }
 
   ingress {
-    external_enabled = true
+    external_enabled = var.is_external
     target_port      = var.target_port # The port is now a variable
     traffic_weight {
       latest_revision = true

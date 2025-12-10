@@ -24,3 +24,9 @@ variable "env_vars" {
   type        = map(string)
   default     = {} 
 }
+
+variable "is_external" {
+  description = "Whether the Container App should have external ingress enabled"
+  type = bool
+  default = true
+}
