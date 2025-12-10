@@ -23,3 +23,13 @@ variable "admin_password" {
   type        = string
   sensitive   = true
 }
+
+variable "delegated_subnet_id" {
+  description = "The ID of the delegated subnet for the PostgreSQL server."
+  type = string
+}
+
+variable "vnet_id" {
+  description = "The ID of the virtual network to link with the private DNS zone."
+  type = string
+}

@@ -30,9 +30,11 @@ module "acr" {
 module "ACA" {
   source = "./modules/container_apps/environment"
 
-  name                = "${var.project_name}-aca-env"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
+  name                           = "${var.project_name}-aca-env"
+  location                       = azurerm_resource_group.main.location
+  resource_group_name            = azurerm_resource_group.main.name
+  infrastructure_subnet_id       = module.network.subnet_ids["snet-aca"]
+  internal_load_balancer_enabled = false
 }
 
 module "postgres" {
@@ -44,6 +46,9 @@ module "postgres" {
 
   admin_username = var.postgres_admin_username
   admin_password = var.postgres_admin_password
+
+  delegated_subnet_id = module.network.subnet_ids["snet-postgres"]
+  vnet_id             = module.network.vnet_id
 }
 
 module "image_importer" {
@@ -68,9 +73,29 @@ module "image_importer" {
   tenant_id           = var.tenant_id
 }
 
+module "network" {
+  source = "./modules/virtual_network"
+
+  name                = "${var.project_name}-vnet"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  address_space       = ["10.0.0.0/16"]
+  subnets = {
+    "snet-aca" = {
+      address_prefixes = ["10.0.0.0/23"]
+      delegation       = "Microsoft.App/environments"
+    }
+
+    "snet-postgres" = {
+      address_prefixes = ["10.0.2.0/24"]
+      delegation       = "Microsoft.DBforPostgreSQL/flexibleServers"
+    }
+  }
+}
+
 # 1. Creation of the Backend
 module "backend" {
-  source = "./modules/container_apps/app_service" 
+  source = "./modules/container_apps/app_service"
 
   # Infos Infra
   resource_group_name = azurerm_resource_group.main.name
@@ -80,13 +105,18 @@ module "backend" {
   acr_login_server    = module.acr.login_server
 
   # infos Specific to Backend
+  is_external  = false
   service_name = "backend-api"
   image_name   = "${module.acr.login_server}/backend:main"
-  target_port  = 8080
-  
-  env_vars = {} 
+  target_port  = 8000
 
-  depends_on = [ module.image_importer ]
+  env_vars = {
+    POSTGRES_HOST     = module.postgres.fqdn
+    POSTGRES_DB       = "${var.project_name}-pg"
+    POSTGRES_USER     = var.postgres_admin_username
+    POSTGRES_PASSWORD = var.postgres_admin_password
+  }
+  depends_on = [module.image_importer]
 }
 
 # 2. Creation of the Frontend
@@ -101,14 +131,15 @@ module "frontend" {
   acr_login_server    = module.acr.login_server
 
   # infos Specific to Frontend
+  is_external  = true
   service_name = "frontend-app"
   image_name   = "${module.acr.login_server}/frontend:main"
-  target_port  = 8080
+  target_port  = 3000
 
   # Injection of the BACKEND_URL variable
   env_vars = {
     BACKEND_URL = module.backend.url
   }
 
-  depends_on = [ module.image_importer ]
+  depends_on = [module.image_importer]
 }
