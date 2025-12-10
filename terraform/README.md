@@ -22,6 +22,7 @@
 | <a name="module_frontend"></a> [frontend](#module\_frontend) | ./modules/container_apps/app_service | n/a |
 | <a name="module_image_importer"></a> [image\_importer](#module\_image\_importer) | ./modules/image_importer | n/a |
 | <a name="module_log_analytics"></a> [log\_analytics](#module\_log\_analytics) | ./modules/log_analytics | n/a |
+| <a name="module_network"></a> [network](#module\_network) | ./modules/virtual_network | n/a |
 | <a name="module_postgres"></a> [postgres](#module\_postgres) | ./modules/postgres | n/a |
 
 ## Resources
