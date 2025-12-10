@@ -108,7 +108,7 @@ module "backend" {
   is_external  = false
   service_name = "backend-api"
   image_name   = "${module.acr.login_server}/backend:main"
-  target_port  = 8080
+  target_port  = 8000
 
   env_vars = {
     POSTGRES_HOST     = module.postgres.fqdn
@@ -134,7 +134,7 @@ module "frontend" {
   is_external  = true
   service_name = "frontend-app"
   image_name   = "${module.acr.login_server}/frontend:main"
-  target_port  = 8080
+  target_port  = 3000
 
   # Injection of the BACKEND_URL variable
   env_vars = {
