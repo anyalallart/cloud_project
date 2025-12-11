@@ -136,9 +136,9 @@ module "frontend" {
   image_name   = "${module.acr.login_server}/frontend:main"
   target_port  = 3000
 
-  # Injection of the BACKEND_URL variable
+  # Injection of the REACT_APP_BACKEND_URL variable
   env_vars = {
-    BACKEND_URL = module.backend.url
+    REACT_APP_BACKEND_URL = module.backend.url
   }
 
   depends_on = [module.image_importer]
