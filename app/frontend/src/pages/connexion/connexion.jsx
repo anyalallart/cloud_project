@@ -7,10 +7,10 @@ const LoginPage = () => {
 
   const handleClick = async () => {
 
-    const BACK_PATH = process.env.REACT_APP_BACKEND_URL;
+    const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
     try {
-      const response = await fetch(`http://${BACK_PATH}:8000/api/login/`, {
+      const response = await fetch(`http://${REACT_APP_BACKEND_URL}:8000/api/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

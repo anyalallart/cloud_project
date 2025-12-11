@@ -16,9 +16,9 @@ const CreateAccount = () => {
 
         try {
             // read env vars (for CRA use REACT_APP_ prefix). Fallbacks included.
-            const BACK_PATH = process.env.REACT_APP_BACKEND_URL;
+            const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-            const response = await fetch(`http://${BACK_PATH}:8000/api/users/`, {
+            const response = await fetch(`http://${REACT_APP_BACKEND_URL}:8000/api/users/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
