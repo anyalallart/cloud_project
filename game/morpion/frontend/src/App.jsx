@@ -1,66 +1,68 @@
 import { useState } from 'react'
 import './App.css'
-import syncIcon from './assets/icons8-synchroniser-48.png'
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(""))
-  const [isXNext, setIsXNext] = useState(true)
-  const [winner, setWinner] = useState(null)
+  const [result, setResult] = useState(null)
+  const [computerMove, setComputerMove] = useState(null)
+  const [score, setScore] = useState({ player: 0, computer: 0 })
 
-  const handleClick = async (index) => {
-    if (board[index] !== "" || winner) return
+  const choices = ["Pierre 🪨", "Feuille 📄", "Ciseaux ✂️"]
 
-    const newBoard = [...board]
-    newBoard[index] = isXNext ? "X" : "O"
-    setBoard(newBoard)
-    setIsXNext(!isXNext)
-
+  const play = async (choice) => {
     try {
-      const response = await fetch(import.meta.env.VITE_API_URL || 'http://localhost:8000/check-game', {
+      const response = await fetch('http://localhost:8000/play', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ board: newBoard })
+        body: JSON.stringify({ player_move: choice })
       })
       const data = await response.json()
-      if (data.winner) setWinner(data.winner)
+      
+      setComputerMove(data.computer)
+      setResult(data.result)
+
+      // Petit bonus : mise à jour du score
+      if (data.result.includes("Gagné")) {
+        setScore(s => ({ ...s, player: s.player + 1 }))
+      } else if (data.result.includes("Perdu")) {
+        setScore(s => ({ ...s, computer: s.computer + 1 }))
+      }
     } catch (error) {
       console.error("Erreur backend:", error)
     }
   }
 
-  const resetGame = () => {
-    setBoard(Array(9).fill(""))
-    setWinner(null)
-    setIsXNext(true)
-  }
-
   return (
     <div className="container">
       <div className="game-card">
-        <h1 className="title">Morpion ✨</h1>
+        <h1 className="title">Chifoumi 🔥</h1>
         
-        <div className="status-badge">
-          {winner === "Draw" ? "Match Nul 😐" : 
-           winner ? `Vainqueur : ${winner} 🎉` : 
-           `Au tour de : ${isXNext ? "X" : "O"}`}
+        <div className="score-board">
+          Toi : {score.player} | Ordi : {score.computer}
         </div>
 
-        <div className="board">
-          {board.map((cell, index) => (
+        <div className="result-area">
+          {result ? (
+            <>
+              <div className="vs-text">L'ordi a joué : {computerMove}</div>
+              <div className="final-result">{result}</div>
+            </>
+          ) : (
+            <div className="vs-text">Fais ton choix !</div>
+          )}
+        </div>
+
+        <div className="choices-grid">
+          {choices.map((choice) => (
             <button 
-              key={index} 
-              // Ici on ajoute une classe spécifique si c'est X ou O
-              className={`cell ${cell === "X" ? "is-x" : cell === "O" ? "is-o" : ""}`} 
-              onClick={() => handleClick(index)}
+              key={choice} 
+              className="choice-btn" 
+              onClick={() => play(choice)}
             >
-              {cell}
+              {choice.split(" ")[1]} {/* Affiche juste l'emoji */}
+              <span className="btn-label">{choice.split(" ")[0]}</span>
             </button>
           ))}
         </div>
-
-        <button className="reset-btn" onClick={resetGame}>
-          Recommencer <img src={syncIcon} alt="Sync" className="btn-icon" />
-        </button>
       </div>
     </div>
   )

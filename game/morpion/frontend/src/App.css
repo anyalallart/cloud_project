@@ -1,64 +1,37 @@
-/* Déclaration de la version normale (Poids 400) */
-@font-face {
-  font-family: 'Fredoka';
-  src: url('./assets/fonts/Fredoka-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-/* Déclaration de la version grasse (Poids 600) */
-@font-face {
-  font-family: 'Fredoka';
-  src: url('./assets/fonts/Fredoka-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
 
 :root {
-  /* Palette inspirée de ton image */
-  --bg-color: #f8f4e9;       /* Fond crème très léger */
-  --stroke-color: #2A2A35;   /* Le contour foncé (presque noir) */
-  --pastel-pink: #FFC4C4;    /* Pour les X (comme l'icone Instagram/Coeur) */
-  --pastel-blue: #C4E4FF;    /* Pour les O (comme le dossier Mac) */
-  --pastel-yellow: #fae99d;  /* Pour le fond de la carte */
-  --pastel-green: #C8E6C9;   /* Pour le bouton recommencer */
-  --shadow-offset: 4px;      /* Décalage de l'ombre */
+  --bg-color: #f7ecbd;
+  --stroke-color: #2A2A35;
+  --accent-yellow: #f3df7b;
+  --accent-blue: #C4E4FF;
+  --accent-pink: #FFC4C4;
 }
 
 body {
   margin: 0;
   background-color: var(--bg-color);
   font-family: 'Fredoka', sans-serif;
-  /* Optionnel mais recommandé pour éviter les problèmes de scroll */
-  width: 100%;
-  overflow-x: hidden;
 }
 
-/* Centrage total de la page */
 .container {
   display: flex;
-  justify-content: center; /* Centre horizontalement */
-  align-items: center;     /* Centre verticalement */
-  min-height: 100vh;       /* Toute la hauteur de l'écran */
-  
-  /* C'EST CETTE LIGNE QUI MANQUE : */
-  width: 100vw;            /* Force la largeur à 100% de la fenêtre */
-  
-  box-sizing: border-box;  /* Évite les problèmes de marge */
-  margin: 0;               /* Supprime les marges par défaut */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw; /* Important pour le centrage */
   padding: 20px;
+  box-sizing: border-box;
 }
 
-/* La carte qui contient le jeu */
 .game-card {
   background-color: white;
   padding: 40px;
   border: 3px solid var(--stroke-color);
   border-radius: 20px;
-  /* L'effet d'ombre "Doodle" décalée sans flou */
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--stroke-color);
+  box-shadow: 4px 4px 0px var(--stroke-color);
   text-align: center;
-  max-width: 350px;
+  max-width: 400px;
   width: 100%;
 }
 
@@ -66,125 +39,78 @@ body {
   color: var(--stroke-color);
   font-size: 2.5rem;
   margin-top: 0;
-  margin-bottom: 20px;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
-/* Badge de statut (Qui joue ?) */
-.status-badge {
-  display: inline-block;
-  background-color: var(--pastel-yellow);
+.score-board {
+  background-color: var(--accent-yellow);
   border: 2px solid var(--stroke-color);
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 50px;
-  font-weight: 600;
-  color: var(--stroke-color);
+  font-weight: bold;
+  display: inline-block;
   margin-bottom: 30px;
   box-shadow: 2px 2px 0px var(--stroke-color);
 }
 
-/* La grille du jeu */
-.board {
-  display: grid;
-  /* CORRECTION : On force 3 colonnes de 90px (comme la hauteur) */
-  grid-template-columns: repeat(3, 90px); 
-  gap: 15px;
-  /* CORRECTION : On centre la grille horizontalement */
-  justify-content: center;
-  margin-bottom: 30px;
+.result-area {
+  height: 80px; /* Hauteur fixe pour éviter que ça saute */
+  margin-bottom: 20px;
 }
 
-/* Les cases (boutons) */
-.cell {
+.vs-text {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.final-result {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--stroke-color);
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); }
+  100% { transform: scale(1); }
+}
+
+.choices-grid {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.choice-btn {
   background-color: white;
-  height: 90px;
-  /* CORRECTION : On fixe la largeur identique à la hauteur */
-  width: 90px; 
   border: 3px solid var(--stroke-color);
   border-radius: 15px;
-  font-size: 3rem;
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 600;
+  width: 90px;
+  height: 110px;
+  font-size: 2.5rem;
   cursor: pointer;
-  color: var(--stroke-color);
-  transition: all 0.2s ease;
-  
-  /* Ombre portée par défaut */
-  box-shadow: 3px 3px 0px rgba(42, 42, 53, 0.1);
-  
-  /* Centrage du X ou O */
+  transition: all 0.2s;
+  box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  
-  /* CORRECTION : Empêche le contenu de déformer la case */
-  box-sizing: border-box; 
-  padding: 0; 
+  font-family: 'Fredoka', sans-serif;
 }
 
-/* Effet au survol d'une case vide */
-.cell:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 3px 5px 0px var(--stroke-color);
-}
-
-/* Style spécifique pour le X (Rose) */
-.cell.is-x {
-  background-color: var(--pastel-pink);
-  color: var(--stroke-color);
-  /* Petit effet d'enfoncement quand c'est rempli */
-  box-shadow: 1px 1px 0px var(--stroke-color);
-  transform: translate(2px, 2px); 
-}
-
-/* Style spécifique pour le O (Bleu) */
-.cell.is-o {
-  background-color: var(--pastel-blue);
-  color: var(--stroke-color);
-  box-shadow: 1px 1px 0px var(--stroke-color);
-  transform: translate(2px, 2px);
-}
-
-/* Bouton Recommencer */
-.reset-btn {
-  width: 100%;
-  padding: 15px;
-  background-color: var(--pastel-green);
-  border: 3px solid var(--stroke-color);
-  border-radius: 12px;
-  color: var(--stroke-color);
-  font-size: 1.2rem;
+.btn-label {
+  font-size: 0.9rem;
   font-weight: bold;
-  font-family: 'Fredoka', sans-serif;
-  cursor: pointer;
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--stroke-color);
-  transition: all 0.1s;
-/* AJOUT : Flexbox pour l'alignement */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px; /* Espace entre le texte "Recommencer" et l'icône */
+  margin-top: 5px;
 }
 
-/* Style de la nouvelle icône */
-.btn-icon {
-  width: 24px;  /* Taille adaptée (ni trop gros, ni trop petit) */
-  height: 24px;
-  transition: transform 0.4s ease; /* Pour l'animation */
+.choice-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 3px 8px 0px var(--stroke-color);
+  background-color: var(--accent-blue);
 }
 
-/* Animation : l'icône tourne quand on survole le bouton */
-.reset-btn:hover .btn-icon {
-  transform: rotate(180deg);
-}
-
-.reset-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--stroke-color);
-}
-
-.reset-btn:active {
-  transform: translate(var(--shadow-offset), var(--shadow-offset));
-  box-shadow: 0px 0px 0px var(--stroke-color);
+.choice-btn:active {
+  transform: translateY(0);
+  box-shadow: 0px 0px 0px;
 }
