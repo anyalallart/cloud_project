@@ -7,8 +7,8 @@ on:
 env:
   REGISTRY: ghcr.io
   REPO: "${{ github.repository_owner }}/${{ github.repository }}"
-  FRONT_PATH: . #app/frontend
-  FRONT_DOCKERFILE: dockerfile #app/frontend/Dockerfile
+  FRONT_PATH: app/frontend
+  FRONT_DOCKERFILE: app/frontend/Dockerfile
   BACK_PATH: app/backend
   BACK_DOCKERFILE: app/backend/Dockerfile
 
