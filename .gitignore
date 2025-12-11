@@ -21,3 +21,25 @@ __pycache__/
 
 # OS
 .DS_Store
+# Terraform state files
+terraform/*.tfstate
+terraform/*.tfstate.*
+
+# Crash logs
+terraform/crash.log
+
+# Local Terraform directories
+terraform/.terraform/
+
+# Variable files containing secrets
+terraform/*.tfvars
+
+# Terraform plan files
+terraform/*.tfplan
+
+# Optional override files
+terraform/override.tf
+terraform/override.tf.json
+terraform/*.backup
+
+terraform/.terraform.lock.hcl
