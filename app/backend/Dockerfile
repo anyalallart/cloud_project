@@ -11,4 +11,4 @@ EXPOSE 8000
 
 ENTRYPOINT [ "python3" ]
 
-CMD [ "-m", "unicorn", "main:app" ]
+CMD [ "-m", "uvicorn", "main:app" ]
