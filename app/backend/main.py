@@ -7,9 +7,7 @@ from database import SessionLocal, engine
 import os
 from dotenv import load_dotenv
 
-load_dotenv("environment.env")
 
-FRONTEND_URL = os.getenv("FRONTEND_URL")
 # Create the database tables
 app = FastAPI()
 
