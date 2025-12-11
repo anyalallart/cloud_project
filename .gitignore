@@ -1,3 +1,26 @@
+# Environnements sensibles
+.env
+*.env
+
+# Virtualenv
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Uvicorn / FastAPI logs
+*.log
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# OS
+.DS_Store
 # Terraform state files
 terraform/*.tfstate
 terraform/*.tfstate.*
