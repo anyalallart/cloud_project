@@ -28,8 +28,6 @@ resource "null_resource" "import_ghcr_images" {
       echo "Import done for ${each.value.repository_name_in_acr}"
 
     EOT
-
-    interpreter = ["/bin/bash", "-c"]
   }
 }
 
