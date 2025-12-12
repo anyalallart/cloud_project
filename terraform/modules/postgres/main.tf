@@ -1,5 +1,5 @@
 resource "azurerm_private_dns_zone" "pg_dns" {
-  name                = "${var.name}.private.postgres.database.azure.com"
+  name                = "private.postgres.database.azure.com"
   resource_group_name = var.resource_group_name
 }
 
@@ -30,6 +30,15 @@ resource "azurerm_postgresql_flexible_server" "this" {
   authentication {
     password_auth_enabled = true
   }
+}
+
+resource "azurerm_postgresql_flexible_server_database" "default" {
+  name = var.name
+  server_id = azurerm_postgresql_flexible_server.this.id
+  collation = "en_US.utf8"
+  charset   = "UTF8"
+
+  depends_on = [ azurerm_postgresql_flexible_server.this ]
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_azure" {
