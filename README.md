@@ -74,33 +74,12 @@ The GitHub Actions workflow defined in `.github/workflows/GHCR_deployment.yml` a
 │   ├── modules
 │   │   ├── container_apps
 │   │   │   ├── app_service
-│   │   │   │   ├── main.tf
-│   │   │   │   ├── outputs.tf
-│   │   │   │   └── variables.tf
 │   │   │   └── environment
-│   │   │       ├── main.tf
-│   │   │       ├── outputs.tf
-│   │   │       └── variables.tf
 │   │   ├── container_registry
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
 │   │   ├── image_importer
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
 │   │   ├── log_analytics
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
 │   │   ├── postgres
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
 │   │   └── virtual_network
-│   │       ├── main.tf
-│   │       ├── output.tf
-│   │       └── variables.tf
 │   ├── main.tf
 │   ├── outputs.tf
 │   ├── provider.tf
