@@ -5,7 +5,7 @@
 
 ## 1. Technical Overview
 
-This module implements a **Tic-Tac-Toe** game designed to be hosted on the **Azure Container Apps** infrastructure provisioned via Terraform.
+This module implements a **morpion** game designed to be hosted on the **Azure Container Apps** infrastructure provisioned via Terraform.
 
 The primary objective of this PoC was to demonstrate the deployment pattern of lightweight microservices communicating via HTTP within the **Pixelo Cloud** environment.
 
