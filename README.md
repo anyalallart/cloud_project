@@ -9,21 +9,39 @@ This module implements a **morpion** game designed to be hosted on the **Azure C
 
 The primary objective of this PoC was to demonstrate the deployment pattern of lightweight microservices communicating via HTTP within the **Pixelo Cloud** environment.
 
-### Technology Stack
+### Technology
 
 * **Frontend:** **React.js (Vite)** — Reactive User Interface responsible for managing the board state.
 * **Backend:** **Python (FastAPI)** — Stateless REST API handling the game logic and victory conditions.
 * **Protocol:** JSON exchanges via POST requests (`/check-game`).
 
-## 2. Project Structure
+## 2. Structure
 
 ```text
 game/morpion/
-├── backend/            # Victory calculation API
-│   └── main.py         # FastAPI Application (Port 8000)
-└── frontend/           # User Interface
-    ├── src/App.jsx     # React Logic & Fetch calls
-    └── vite.config.js  # Build configuration
+├── backend/
+│   └── main.py
+├── frontend/
+│   ├── public/
+│   │   └── vite.svg
+│   ├── src/
+│   │   ├── assets/
+│   │   │   ├── Fredoka-Regular.ttf
+│   │   │   ├── Fredoka-SemiBold.ttf
+│   │   │   ├── icons8-synchroniser-48.png
+│   │   │   └── react.svg
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .gitignore
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── README.md
+│   └── vite.config.js
+└── .gitignore
 ```
 ## 3. Architecture & Cloud Integration (Target)
 
