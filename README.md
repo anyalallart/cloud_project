@@ -59,38 +59,39 @@ The GitHub Actions workflow defined in `.github/workflows/GHCR_deployment.yml` a
 ## File Structure
 ```text
 .
-├── .github                 
-│   └── workflows        # Pipelines CI/CD (GitHub Actions)
-│       ├── GHCR_deployment.yml       # Pipeline de construction et déploiement des images Docker
-│       ├── terraform_check.yml       # Vérification de la syntaxe et sécurité du code (CI)
-│       └── terraform_doc.yml         # Génération automatique de la documentation Terraform
+├── .github
+│   └── workflows     # CI/CD Pipelines (GitHub Actions)
+│       ├── GHCR_deployment.yml     # Docker image build and deployment pipeline
+│       ├── terraform_check.yml     # Code syntax and security check (CI)
+│       └── terraform_doc.yml       # Automatic Terraform documentation generation
 ├── app
 │   ├── backend
-│   │   ├── Dockerfile                 # Construction de l'image Docker Backend
+│   │   ├── Dockerfile              # Backend Docker image build
 │   │   ├── main.py
 │   │   └── requirements.txt
 │   ├── frontend
-│   │   ├── Dockerfile                 # Construction de l'image Docker Frontend
-│   │   ├── docker-entrypoint.sh       # Script de démarrage du conteneur
-│   │   ├── index.html                 # Page principale
-│   │   └── nginx.conf                 # Configuration du serveur web
+│   │   ├── Dockerfile              # Frontend Docker image build
+│   │   ├── docker-entrypoint.sh    # Container startup script
+│   │   ├── index.html              # Main page
+│   │   └── nginx.conf              # Web server configuration
 │   └── docker-compose.yml
 ├── terraform
 │   ├── modules
-│   │   ├── container_apps            # Azure Container Apps (ACA)
+│   │   ├── container_apps          # Azure Container Apps (ACA)
 │   │   │   ├── app_service
 │   │   │   └── environment
-│   │   ├── container_registry        # Azure Container Registry (ACR)
+│   │   ├── container_registry      # Azure Container Registry (ACR)
 │   │   ├── image_importer
-│   │   ├── log_analytics             # Centralisation des logs et monitoring
-│   │   ├── postgres                  # Base de données PostgreSQ
-│   │   └── virtual_network           # Configuration réseau (VNet, Subnets)
-│   ├── main.tf                       # Orchestration principale des modules
+│   │   ├── log_analytics           # Log centralization and monitoring
+│   │   ├── postgres                # PostgreSQL Database
+│   │   └── virtual_network         # Network configuration (VNet, Subnets)
+│   ├── main.tf                     # Main module orchestration
 │   ├── outputs.tf
 │   ├── provider.tf
 │   ├── ressource_groups.tf
 │   └── variables.tf
 └── README.md
+
 ```
 
 
