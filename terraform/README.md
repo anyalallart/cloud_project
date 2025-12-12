@@ -35,8 +35,6 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_ghcr_pat"></a> [ghcr\_pat](#input\_ghcr\_pat) | GitHub Personal Access Token (PAT) for GHCR authentication. | `string` | n/a | yes |
-| <a name="input_ghcr_username"></a> [ghcr\_username](#input\_ghcr\_username) | GitHub username for GHCR authentication. | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Azure region where the resources will be created | `string` | `"uksouth"` | no |
 | <a name="input_postgres_admin_password"></a> [postgres\_admin\_password](#input\_postgres\_admin\_password) | n/a | `string` | n/a | yes |
 | <a name="input_postgres_admin_username"></a> [postgres\_admin\_username](#input\_postgres\_admin\_username) | n/a | `string` | `"pgadmin"` | no |

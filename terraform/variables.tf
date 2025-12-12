@@ -51,18 +51,3 @@ variable "postgres_admin_password" {
   type        = string
   sensitive   = true
 }
-
-###################################################
-################ Image Importer ###################
-###################################################
-
-variable "ghcr_username" {
-  description = "GitHub username for GHCR authentication."
-  type      = string
-}
-
-variable "ghcr_pat" {
-  description = "GitHub Personal Access Token (PAT) for GHCR authentication."
-  type      = string
-  sensitive = true
-}

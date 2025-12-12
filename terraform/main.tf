@@ -54,8 +54,6 @@ module "postgres" {
 module "image_importer" {
   source = "./modules/image_importer"
 
-  ghcr_username = var.ghcr_username
-  ghcr_pat      = var.ghcr_pat
   docker_images = [
     {
       source_image_name      = "anyalallart/anyalallart/cloud_project/frontend"
