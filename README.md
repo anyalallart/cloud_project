@@ -14,7 +14,7 @@ The primary objective of this PoC was to demonstrate the deployment pattern of l
 
 * **Frontend:** **React.js (Vite)** — Reactive User Interface responsible for managing the board state.
 * **Backend:** **Python (FastAPI)** — Stateless REST API handling the game logic and victory conditions.
-* **Protocol:** JSON exchanges via POST requests (`/check-game`).
+* **Protocol:** JSON exchanges via POST requests (`/new-game`).
 
 ## 2. Structure
 
