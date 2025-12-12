@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demonstration</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #007bff; text-align: center; }
+        button { padding: 10px 15px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
+        .add { background-color: #28a745; color: white; }
+        .add:hover { background-color: #218838; }
+        .delete { background-color: #dc3545; color: white; }
+        .delete:hover { background-color: #c82333; }
+        #output { background: #eee; padding: 15px; border-radius: 4px; white-space: pre; margin-top: 15px; }
+        #status { font-weight: bold; margin-top: 20px; }
+        .count-display { font-size: 1.5em; color: #6c757d; }
+    </style>
+</head>
+<body onload="fetchCount()">
+    <div class="container">
+        <h1>Demonstration</h1>
+        <p>Use the buttons to interact with the DB via the Backend.</p>
+
+        <button class="add" onclick="updateItem('/api/add/', 'POST')">Add 1 Row</button>
+        <button class="delete" onclick="updateItem('/api/delete/', 'POST')">Delete 1 Row</button>
+        <button onclick="fetchCount()">Refresh Count</button>
+
+        <h2 id="count-display" class="count-display">Items in DB: 0</h2>
+        
+        <div id="status">Status of last operation: Waiting...</div>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        // BACKEND_API_URL is injected here by the Nginx script (e.g., http://backend-api.fqdn:8000)
+        // Note: The variable must be enclosed in single quotes here if using envsubst
+        const BACKEND_URL = '${BACKEND_API_URL}'; 
+
+        // Generic function to handle POST requests
+        async function updateItem(endpoint, method) {
+            document.getElementById('status').innerHTML = `<span style="color: blue;">Request in progress to ${endpoint}...</span>`;
+            document.getElementById('output').innerText = '';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}${endpoint}`, { method: method });
+                
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || `HTTP Error: ${response.status}`);
+                }
+                
+                document.getElementById('status').innerHTML = `<span style="color: green;">SUCCESS: ${data.message}</span>`;
+                updateCountDisplay(data.count);
+                document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+                
+            } catch (error) {
+                document.getElementById('status').innerHTML = `<span style="color: red;">FAILURE: ${error.message}</span>`;
+                document.getElementById('output').innerText = `Check Backend (${BACKEND_URL}) and CORS.`;
+            }
+        }
+
+        function updateCountDisplay(count) {
+            document.getElementById('count-display').innerText = `Items in DB: ${count}`;
+        }
+
+        // Function to fetch count on page load
+        async function fetchCount() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/count/`);
+                const data = await response.json();
+                if (response.ok) {
+                    updateCountDisplay(data.count);
+                } else {
+                    updateCountDisplay("Error");
+                }
+            } catch (error) {
+                updateCountDisplay("Connection Error");
+            }
+        }
+
+        // Run initial count check
+        fetchCount();
+        console.log("Injected BACKEND_URL:", BACKEND_URL);
+    </script>
+</body>
+</html>
