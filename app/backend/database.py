@@ -1,29 +1,27 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 import os
-from dotenv import load_dotenv
+import urllib.parse
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
-# create database connection
+# Récupération des variables
+POSTGRES_USER = os.getenv("POSTGRES_USER", "user")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "password")
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
+POSTGRES_DB = os.getenv("POSTGRES_DB", "db")
+SSL_MODE = os.getenv("SSL_MODE", "require") # Par défaut 'require' pour la PROD
 
-# load variables from data.env
-try:
-    load_dotenv("environment.env")
-except Exception as e:
-    raise RuntimeError(f"Failed to load environment variables: {e}")
+encoded_password = urllib.parse.quote_plus(POSTGRES_PASSWORD)
 
-POSTGRES_USER = os.getenv("POSTGRES_USER")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
-POSTGRES_HOST = os.getenv("POSTGRES_HOST")
-POSTGRES_DB = os.getenv("POSTGRES_DB")
+# Construction de l'URL
+DATABASE_URL = f"postgresql://{POSTGRES_USER}:{encoded_password}@{POSTGRES_HOST}:5432/{POSTGRES_DB}"
 
-if not POSTGRES_USER or not POSTGRES_PASSWORD:
-    raise RuntimeError("POSTGRES_USER and POSTGRES_PASSWORD must be set in .env")
+# Ajout conditionnel du SSL
+if SSL_MODE == "require":
+    DATABASE_URL += "?sslmode=require"
 
-URL_DATABASE = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/{POSTGRES_DB}"
+print(f"Connecting to DB at {POSTGRES_HOST}...") # Debug utile
 
-engine = create_engine(URL_DATABASE)
-
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
 Base = declarative_base()

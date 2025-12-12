@@ -21,7 +21,8 @@ app.add_middleware(
     allow_methods=["*"],        
     allow_headers=["*"],        
 )
-models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine) #Q: what does this line do?
+#A: 
 
 # Pydantic models for request and response bodies
 class UsersBase(BaseModel):
@@ -37,6 +38,9 @@ def get_db():
         db.close()
 
 # API endpoints
+@app.get("/")
+def read_root():
+    return {"status": "ok", "message": "Backend is running"}
 @app.post("/api/login/")    #to log in
 def login(user: UsersBase, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.username == user.username).first()
