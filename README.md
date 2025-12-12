@@ -23,7 +23,7 @@ postgres_admin_username = "your_postgres_admin_username"
 postgres_admin_password = "your_postgres_admin_password"
 ```
 
-You can find your subscription ID and tenant ID in the Azure portal under "Subscriptions" our with the Azure CLI using the command:
+You can find your subscription ID and tenant ID in the Azure portal under "Subscriptions" or with the Azure CLI using the command:
 ```shell
 az account show --query "{subscriptionId:id, tenantId:tenantId}"
 ```
