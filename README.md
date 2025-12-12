@@ -57,6 +57,58 @@ To build and deploy the application, follow these steps:
 The GitHub Actions workflow defined in `.github/workflows/GHCR_deployment.yml` automates the process of building and pushing Docker images to GHCR. It is triggered on pushes to the `main` branch and on pull requests targeting the `main` branch. The workflow includes steps to check out the code, log in to GHCR, build the Docker images for both frontend and backend, and push them to the registry.
 
 ## File Structure
+```text
+.
+├── app
+│   ├── backend
+│   │   ├── Dockerfile
+│   │   ├── main.py
+│   │   └── requirements.txt
+│   ├── frontend
+│   │   ├── Dockerfile
+│   │   ├── docker-entrypoint.sh
+│   │   ├── index.html
+│   │   └── nginx.conf
+│   └── docker-compose.yml
+├── terraform
+│   ├── modules
+│   │   ├── container_apps
+│   │   │   ├── app_service
+│   │   │   │   ├── main.tf
+│   │   │   │   ├── outputs.tf
+│   │   │   │   └── variables.tf
+│   │   │   └── environment
+│   │   │       ├── main.tf
+│   │   │       ├── outputs.tf
+│   │   │       └── variables.tf
+│   │   ├── container_registry
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── image_importer
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── log_analytics
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── postgres
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   └── virtual_network
+│   │       ├── main.tf
+│   │       ├── output.tf
+│   │       └── variables.tf
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── provider.tf
+│   ├── ressource_groups.tf
+│   └── variables.tf
+├── README.md
+└── dockerfile
+```
 
 
 ## Azure Resources
