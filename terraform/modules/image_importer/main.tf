@@ -22,14 +22,17 @@ resource "null_resource" "import_ghcr_images" {
         --name ${var.acr_name} \
         --source ghcr.io/${each.value.source_image_name}:${each.value.image_tag} \
         --image ${each.value.repository_name_in_acr}:${each.value.image_tag} \
-        --username "${var.ghcr_username}" \
-        --password "${var.ghcr_pat}" \
         --resource-group ${var.resource_group_name} \
         --force
 
       echo "Import done for ${each.value.repository_name_in_acr}"
+
     EOT
 
     interpreter = ["/bin/bash", "-c"]
   }
 }
+
+# Note: If authentication is needed for GHCR, uncomment and use the following lines
+# --username "${var.ghcr_username}" \
+# --password "${var.ghcr_pat}" \
