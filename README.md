@@ -89,7 +89,8 @@ The GitHub Actions workflow defined in `.github/workflows/GHCR_deployment.yml` a
 │   ├── outputs.tf
 │   ├── provider.tf
 │   ├── ressource_groups.tf
-│   └── variables.tf
+│   ├── variables.tf
+│   └── terraform.tfvars         <--- insert your file here
 └── README.md
 
 ```
