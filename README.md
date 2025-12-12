@@ -45,6 +45,11 @@ To build and deploy the application, follow these steps:
    terraform apply
    ```
 
+## How to access
+after deploying, you can find the URL link at two different places :
+1. In the terminal after the deployment is completed, the link will be displayed for you to use.
+2. In azure, go on the frontend container app in the Overview section, the link will also be displayed.
+
 ## Project Structure
 - `app/frontend/`: Contains the React frontend application.
 - `app/backend/`: Contains the Flask backend application.
