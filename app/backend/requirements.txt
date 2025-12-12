@@ -1,23 +1,5 @@
-# Runtime
-python-dotenv>=1.0,<2
-
-
-# Optional (task queue / broker)
-celery>=5.3,<6
-redis>=4.5,<5
-
-# Optional (migrations / SQL toolkit)
-alembic>=1.11,<2
-SQLAlchemy>=1.4,<2
-psycopg2-binary>=2.9,<3
-
-# Dev / Testing
-fastapi>=0.100,<1
-uvicorn[standard]>=0.22,<1
-pydantic>=2.9,<3
-
-black>=23.0,<24
-isort>=5.10,<6
-flake8>=5.0,<6
-
-# Force cache invalidation: 20251212-2
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+python-dotenv

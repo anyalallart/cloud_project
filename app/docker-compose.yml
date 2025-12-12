@@ -1,0 +1,54 @@
+# Fichier : docker-compose.yml
+
+version: '3.8'
+
+services:
+  # --- 1. Base de Données PostgreSQL ---
+  db:
+    image: postgres:15-alpine
+    container_name: aca-demo-db
+    environment:
+      POSTGRES_USER: localuser
+      POSTGRES_PASSWORD: localpassword
+      POSTGRES_DB: aca_demo_db
+    healthcheck:
+      # Vérifie que la base de données est prête
+      test: ["CMD-SHELL", "pg_isready -U localuser -d aca_demo_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # --- 2. Backend FastAPI (avec CORS et logique DB) ---
+  backend:
+    # Utilise le Dockerfile dans le dossier backend/
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: aca-demo-backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Variables d'environnement pour le backend/main.py
+      POSTGRES_USER: localuser
+      POSTGRES_PASSWORD: localpassword
+      POSTGRES_DB: aca_demo_db
+      POSTGRES_HOST: db # L'hôte est le nom du service DB (accessible dans le réseau Docker)
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # --- 3. Frontend Nginx (avec injection de l'URL locale du Backend) ---
+  frontend:
+    # Utilise le Dockerfile dans le dossier frontend/
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: aca-demo-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # Variable lue par le script d'entrée (docker-entrypoint.sh)
+      # Doit pointer vers l'adresse d'accès du Backend sur l'hôte (localhost:8000)
+      BACKEND_API_URL: http://localhost:8000 
+    depends_on:
+      - backend

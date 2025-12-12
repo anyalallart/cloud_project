@@ -1,15 +1,15 @@
-# Dockerfile for the frontend application (Node)
-FROM node:18-alpine
+FROM nginx:alpine
 
-WORKDIR /app/frontend
+# Install tools needed for variable injection (gettext provides envsubst)
+RUN apk add --no-cache bash gettext
 
-# install dependencies (uses package.json / package-lock.json)
-COPY package*.json ./
-RUN npm install
+# Copy files
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY index.html /usr/share/nginx/html/
+COPY docker-entrypoint.sh /
 
-# copy application source
-COPY . .
+# Make the script executable
+RUN chmod +x /docker-entrypoint.sh
 
-EXPOSE 3000
-
-CMD ["npm", "start"]
+# Set the entrypoint to run the injection script before starting Nginx
+ENTRYPOINT ["/docker-entrypoint.sh"]
