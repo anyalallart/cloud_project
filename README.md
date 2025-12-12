@@ -29,7 +29,7 @@ The primary objective of this PoC was to demonstrate the deployment pattern of l
 
 * **Backend:** **Python (FastAPI)** — Stateless REST API handling the game logic and victory conditions.
 
-* **Protocol:** JSON exchanges via POST requests (`/check-game`).
+* **Protocol:** JSON exchanges via POST requests (`/play`).
 
 
 ## 2. Structure
