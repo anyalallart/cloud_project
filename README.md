@@ -59,34 +59,38 @@ The GitHub Actions workflow defined in `.github/workflows/GHCR_deployment.yml` a
 ## File Structure
 ```text
 .
+├── .github                 
+│   └── workflows        # Pipelines CI/CD (GitHub Actions)
+│       ├── GHCR_deployment.yml       # Pipeline de construction et déploiement des images Docker
+│       ├── terraform_check.yml       # Vérification de la syntaxe et sécurité du code (CI)
+│       └── terraform_doc.yml         # Génération automatique de la documentation Terraform
 ├── app
 │   ├── backend
-│   │   ├── Dockerfile
+│   │   ├── Dockerfile                 # Construction de l'image Docker Backend
 │   │   ├── main.py
 │   │   └── requirements.txt
 │   ├── frontend
-│   │   ├── Dockerfile
-│   │   ├── docker-entrypoint.sh
-│   │   ├── index.html
-│   │   └── nginx.conf
+│   │   ├── Dockerfile                 # Construction de l'image Docker Frontend
+│   │   ├── docker-entrypoint.sh       # Script de démarrage du conteneur
+│   │   ├── index.html                 # Page principale
+│   │   └── nginx.conf                 # Configuration du serveur web
 │   └── docker-compose.yml
 ├── terraform
 │   ├── modules
-│   │   ├── container_apps
+│   │   ├── container_apps            # Azure Container Apps (ACA)
 │   │   │   ├── app_service
 │   │   │   └── environment
-│   │   ├── container_registry
+│   │   ├── container_registry        # Azure Container Registry (ACR)
 │   │   ├── image_importer
-│   │   ├── log_analytics
-│   │   ├── postgres
-│   │   └── virtual_network
-│   ├── main.tf
+│   │   ├── log_analytics             # Centralisation des logs et monitoring
+│   │   ├── postgres                  # Base de données PostgreSQ
+│   │   └── virtual_network           # Configuration réseau (VNet, Subnets)
+│   ├── main.tf                       # Orchestration principale des modules
 │   ├── outputs.tf
 │   ├── provider.tf
 │   ├── ressource_groups.tf
 │   └── variables.tf
-├── README.md
-└── dockerfile
+└── README.md
 ```
 
 
