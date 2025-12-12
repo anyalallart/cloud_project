@@ -52,3 +52,15 @@ pip install fastapi uvicorn
 # Start the server (Listens on http://localhost:8000)
 uvicorn main:app --reload
 ```
+
+### 2. Start the Frontend
+
+```bash
+cd game/morpion/frontend
+
+# Install dependencies
+npm install
+
+# Start the development server (Listens on http://localhost:3001 by default)
+npm run dev
+```
