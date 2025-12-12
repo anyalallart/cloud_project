@@ -1,7 +1,7 @@
 
 # cloud_project
 
-# Feature: Morpion
+# Feature: Chifoumi
 
 
 
@@ -13,7 +13,7 @@
 
 
 
-This module implements a **morpion** game designed to be hosted on the **Azure Container Apps** infrastructure provisioned via Terraform.
+This module implements a **Chifoumi (Rock-Paper-Scissors)** game designed to be hosted on the **Azure Container Apps** infrastructure provisioned via Terraform.
 
 
 
