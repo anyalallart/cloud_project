@@ -105,13 +105,13 @@ module "backend" {
   acr_login_server    = module.acr.login_server
 
   # infos Specific to Backend
-  is_external  = false
+  is_external  = true
   service_name = "backend-api"
   image_name   = "${module.acr.login_server}/backend:main"
   target_port  = 8000
 
   env_vars = {
-    #POSTGRES_HOST     = module.postgres.fqdn
+    POSTGRES_HOST     = module.postgres.fqdn
     POSTGRES_DB       = "${var.project_name}-pg"
     POSTGRES_USER     = var.postgres_admin_username
     POSTGRES_PASSWORD = var.postgres_admin_password
@@ -138,7 +138,7 @@ module "frontend" {
 
   # Injection of the REACT_APP_BACKEND_URL variable
   env_vars = {
-    REACT_APP_BACKEND_URL = "http://${module.backend.fqdn}:8000"
+    BACKEND_API_URL = module.backend.url
   }
 
   depends_on = [module.image_importer]
