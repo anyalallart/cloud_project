@@ -1,5 +1,5 @@
 # cloud_project
-# Feature: Tic-Tac-Toe (Morpion)
+# Feature: Morpion
 
 > **Status:** 🧪 **Proof of Concept (PoC)** — Functional in local environment, currently not deployed to Production.
 
