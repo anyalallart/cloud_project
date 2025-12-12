@@ -1,5 +1,5 @@
 # Dockerfile for the backend application
-FROM python:3.11-alpine
+FROM python:3.11-slim
 
 WORKDIR /app/backend
 
@@ -11,4 +11,4 @@ EXPOSE 8000
 
 ENTRYPOINT [ "python3" ]
 
-CMD [ "-m", "uvicorn", "main:app" ]
+CMD [ "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000" ]
