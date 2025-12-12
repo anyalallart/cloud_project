@@ -101,13 +101,9 @@ Follow these steps to test the functionality outside of the cloud environment:
 
 cd game/morpion/backend
 
-
-
 # Install dependencies
 
 pip install fastapi uvicorn
-
-
 
 # Start the server (Listens on http://localhost:8000)
 
@@ -125,13 +121,9 @@ uvicorn main:app --reload
 
 cd game/morpion/frontend
 
-
-
 # Install dependencies
 
 npm install
-
-
 
 # Start the development server (Listens on http://localhost:3001 by default)
 
