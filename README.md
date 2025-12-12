@@ -105,7 +105,15 @@ The Terraform configuration provisions the following Azure resources:
 - Azure log analytics workspace
 
 
+## 🎮 Proof of Concepts (Mini-Games)
 
+In addition to the Cloud infrastructure, this repository includes three micro-applications developed to demonstrate the **Frontend (React) ↔ Backend (FastAPI)** architecture pattern:
+
+* **❌ Morpion**
+* **✂️  Chifoumi (Rock-Paper-Scissors)**
+* **💣 Démineur**
+
+> **⚠️ Note:** These modules are **Proof of Concepts (PoC)** that are functional in a local environment. They are **not included** in the current Terraform deployment (Production).
 
 
 
