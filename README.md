@@ -3,9 +3,9 @@ This is a cloud project for M2 course.
 
 
 ## Maintainers
-[Natacha Goubert](natacha.goubert@student.junia.com)  
-[Ethan Marfjan](ethan.marfjan@student.junia.com)  
-[Anya Lallart](anya.lallart@student.junia.com)
+[Natacha Goubert](NatachaGoubert)  
+[Ethan Marfjan](EthanMarfjan)  
+[Anya Lallart](anyalallart)
 
 ## Summary
 
@@ -51,15 +51,15 @@ after deploying, you can find the URL link at two different places :
 2. In azure, go on the frontend container app in the Overview section, the link will also be displayed.
 
 ## Project Structure
-- `app/frontend/`: Contains the React frontend application.
-- `app/backend/`: Contains the Flask backend application.
+- `app/frontend/`: Contains the frontend application.
+- `app/backend/`: Contains the backend application.
 - `.github/workflows/`: Contains GitHub Actions workflow files for CI/CD.
 - `.terraform/`: Contains Terraform configuration files for infrastructure as code.
 - `README.md`: Project documentation.
 - `.gitignore`: Specifies files and directories to be ignored by Git.
 
 ## GitHub Actions Workflow
-The GitHub Actions workflow defined in `.github/workflows/GHCR_deployment.yml` automates the process of building and pushing Docker images to GHCR. It is triggered on pushes to the `main` branch and on pull requests targeting the `main` branch. The workflow includes steps to check out the code, log in to GHCR, build the Docker images for both frontend and backend, and push them to the registry.
+The GitHub Actions workflow defined in `.github/workflows/GHCR_deployment.yml` automates the process of building and pushing Docker images to GHCR. It is triggered on pushes to the `main` branch. The workflow includes steps to check out the code, log in to GHCR, build the Docker images for both frontend and backend, and push them to the registry.
 
 ## File Structure
 ```text
