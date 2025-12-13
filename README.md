@@ -11,6 +11,9 @@ This is a cloud project for M2 course.
 
 This project consists in deploying a full-stack application using GitHub Actions and GitHub Container Registry (GHCR). The application is composed of a React frontend and a Flask backend. The deployment process is automated using GitHub Actions workflows that build and push Docker images to GHCR.
 
+<img width="683" height="464" alt="image" src="https://github.com/user-attachments/assets/0516cfcd-1ccb-4b89-8b88-3a4d242b4d3d" />
+
+
 ## Configuration
 You can create a file `terraform.tfvars` in the terraform folder to avoid filling the prompt each time you apply.
 
