@@ -20,7 +20,7 @@ module "log_analytics" {
 
 module "acr" {
   source              = "./modules/container_registry"
-  name                = "${var.project_name}acr2"
+  name                = "${var.project_name}acr"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   sku                 = "Basic"
@@ -54,8 +54,6 @@ module "postgres" {
 module "image_importer" {
   source = "./modules/image_importer"
 
-  ghcr_username = var.ghcr_username
-  ghcr_pat      = var.ghcr_pat
   docker_images = [
     {
       source_image_name      = "anyalallart/anyalallart/cloud_project/frontend"
