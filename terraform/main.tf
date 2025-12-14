@@ -20,7 +20,7 @@ module "log_analytics" {
 
 module "acr" {
   source              = "./modules/container_registry"
-  name                = "${var.project_name}acr"
+  name                = "${var.project_name}acr2"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   sku                 = "Basic"
